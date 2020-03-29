@@ -98,12 +98,23 @@ app.get("/:customListName", function(req, res){
 app.post("/", function(req, res){
 // Items content
   const itemName = req.body.newItem;
+  const listName = req.body.list;
 // Le da a itemName el formato de la DB y lo guarda en item
   const item = new Item ({name: itemName});
-// Guarda el item en la DB
-  item.save();
 
-  res.redirect("/");
+  if (listName === "Today") {
+    item.save();
+    res.redirect("/");
+  }else{
+    List.findOne({name: listName}, function(err, foundList){
+      console.log("Entre a la parte donde se guarda en una lista que no es today y es: " + foundList)
+      foundList.items.push(item);
+      foundList.save();
+      res.redirect("/" + foundList.name);
+    })
+  }
+// Guarda el item en la DB
+
 });
 
 app.post("/delete", function(req, res){
