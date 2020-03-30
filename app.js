@@ -10,7 +10,7 @@ app.set('view engine', "ejs");
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/todolistDB", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://admin-nico:ahezabub@cluster0-dosu7.mongodb.net/todolistDB", {useNewUrlParser: true, useUnifiedTopology: true});
 
 // Formato y modelo de Mongo
 const itemsSchema = {
